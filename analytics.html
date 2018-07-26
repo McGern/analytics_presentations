@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Google Analytics - The basics</title>
+
+		<meta name="description" content="Google Analytics Basics">
+		<meta name="author" content="Jarrod McGuire">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/equator.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Google Analytics</h1>
+					<h3>An introduction</h3>
+					<p>
+						<small>Jarrod McGuire</small>
+					</p>
+				</section>
+
+				<section>
+					<span data-markdown>
+						## What's in this session
+						* What are we doing here?
+						* Overview of Google Analytics (GA)
+						* Basic install
+						* Basic methods
+						* Identify holes in the tracking
+						* The report side of things
+						* Testing
+						* Stuff I have deemed to be important
+					</span>
+				</section>
+				
+				<section>
+					<section data-markdown>
+						## Overview of Google Analytics
+						* What is GA?
+						* How does it work? 
+						* Who is responsible?
+					</section>
+					<section data-markdown>
+						### What is GA?
+						* Started life as Urchin Analytics (hence the UA)
+						* Now in 3rd major overhaul since Urchin
+						* Probably called "Universal" because of the "UA" code
+					</section>
+					<section>
+						<span data-markdown>
+							### How does it work?
+							- GA creates a persistent cookie storing only an Id
+							- Every request (beacon) is an image with querystring data
+						</span>
+						<pre class="url">
+<em>https://www.google-analytics.com/collect</em>?v=1&_v=j68d&a=822112312&
+<em>t=pageview</em>&_s=1&
+<em>dl=https%3A%2F%2Fwww.village-hotels.co.uk%2Fhotels%2Fglasgow%2F</em>
+&dr=https%3A%2F%2Fwww.google.co.uk%2F&ul=en-gb&de=UTF-8
+&dt=Hotel%20in%20Glasgow%20near%20the%20SEC%20and%20Hydro%20-%20Village%20Hotels
+&sd=24-bit&sr=1920x1200&vp=1201x1186&je=0&_u=QACAAEAB~&jid=&gjid=&
+<em>cid=373375956.1504095662</em>&
+<em>tid=UA-7171690-1</em>&_gid=2066475738.1532008785&amp;gtm=G6tMB599P&z=1910951427</pre>
+					</section>
+
+					<section data-markdown data-background="images/beacon-flow.png" data-background-color="#ddd" data-background-size="auto">
+					</section>
+				
+					<section data-markdown>
+						### Who is responsible?
+						- The main focus should be on the statistical stakeholder
+							- i.e. who wants the reports
+						- Development don't make reports, only provide data
+						- The data that needs to be collected should be defined up front
+						- A developer should always ask the question about analytics
+					</section>
+				</section>
+
+				<section>
+					<section data-markdown>
+						## Basic install
+						* The basic code
+						* Out of the box
+						* Not out of the box
+					</section>
+					<section>
+						<h3>The basic code</h3>
+						<pre><code class="javascript">
+ /* Recommended to put this in the head.
+    Creates less hassles with code in the future */
+ (function (i, s, o, g, r, a, m) {
+ 	// blah blah blah. Code provided by GA
+ })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ ga('create', 'UA-12345678-1' , 'auto');
+ ga('send', 'pageview');
+
+</code></pre>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						### Some things out get out of the box
+						- pages <!-- .element: class="fragment" -->
+							- landing
+							- exits
+							- page load times (I think)
+						- referrers <!-- .element: class="fragment" -->
+						- visitors <!-- .element: class="fragment" -->
+							- time on site
+							- geography
+							- returns
+						- browser and os<!-- .element: class="fragment" -->
+						</script>
+					</section>
+					<section data-markdown>
+						### Things you can add/configure
+						- **Goals and funnels**
+						- **virtual page views**
+						- **event tracking**
+						- **ecommerce**
+						- *social tracking*
+						- *enhanced link attribution (what they clicked on)*
+						- *dimensions (custom variables for segmentation)*
+						- *adwords*
+						- *site search*
+						- *custom reports*
+						- *filters*
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						## Basic methods (views and events)
+						- Page view
+							- Track portions of content that you consider to be a page
+						- Event
+							- Track user interactions within pages
+							- Fine line needs to be decided with dynamic content e.g. did the user click the next button or did the user go to a new "page"?
+					</section>
+					<section>
+						<h3>Page view</h3>
+						<pre><code class="javascript">
+ /* The standard you get with the script
+    used when the page page first loads */
+ ga('send', 'pageview');
+
+ /* extend the pageview method to allow
+    for server override */
+ ga('send', 'pageview', '@Model.VirtualPageview');
+
+</code></pre>
+					</section>
+					<section>
+						<span data-markdown>
+							### Virtual page view
+							- Dynamic/ajax content
+							- horrible urls
+							- pages with single url that pretend to be 2 pages
+								- form thank you
+						</span>
+						<pre><code class="javascript">
+ /* Pageview with override. Can be called anytime */
+ ga('send', 'pageview', '/page-i-made-up');
+ 
+</code></pre>
+					</section>
+					<section>
+						<span data-markdown>
+							### An better approach
+							- With Universal it is possible to set the page parameter that is used with all requests
+						</span>
+						<pre><code class="javascript">
+ /* Set the page parameter for all subsequent beacons */
+ ga('set','page','/fake-page');
+ /* Send a normal pageview. Will use the "page" value, not the url
+ ga('send', 'pageview');
+ /* Send an event. Will also use the "page" value */
+ ga('send', 'event','categoryXYZ','action123');
+ 
+</code></pre>
+					</section>
+					<section>
+						<span data-markdown>
+							### Track event
+							- Rather than invoking a virtual page view to track user interactions, an event can be called to indicate what your users have been up to without bloating your page view data
+							- Used to see how users are interacting with pages/controls on the site
+								- External links, downloads and mailto links
+								- Interface actions (start/stop video)
+								- button clicks
+							- Category, Action and Label are hierarchical. Use them to drill down for more detailed info
+							- Value is an optional metric where you can add weight to the event
+						</span>
+						<pre><code class="javascript">
+ /* example of event syntax */
+ ga('send', 'event', 'Category', 'Action', 'Label', Value);
+
+ ga('send', 'event', 'Page click', 'Menu bar', 'Menu open');
+
+</code></pre>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						## Basic methods (ecommerce)
+						- Quantify how your site is performing.
+						- A conversion is where you turn a site visit into something of value to you.
+						- Ecommerce tracking can give you clearer information which is quicker to access regarding visits, CPC, organic, campaigns and how they converted
+						- Any site can use ecommerce tracking regardless of whether there is money changing hands or not.
+							- In these cases an arbitrary amount is assigned to the transaction e.g. £1
+					</section>
+					<section>
+						<span data-markdown>
+							### Ecommerce code
+						</span>
+						<pre><code class="javascript"> /* Add ecommerce plugin. DO NOT FORGET IT! */
+ ga('require', 'ecommerce');
+</code></pre>
+						<pre><code class="javascript"> /* Create the transaction container */
+ ga('ecommerce:addTransaction', {
+   'id': '1234',                   // Transaction ID. Required.
+   'affiliation': 'Acme Clothing', // Affiliation or store name.
+   'revenue': '30',                // Grand Total.
+   'shipping': '5',                // Shipping. Not added to total 
+   'tax': '1.29',                  // Tax. Not added to total
+   'currency': 'EUR'               // local currency code.
+ });
+</code></pre>
+						<pre><code class="javascript"> /* Put each different item type into the container */
+ ga('ecommerce:addItem', {
+   'id': '1234',                  // Transaction ID. Must be same as above.
+   'name': 'Fluffy Pink Bunnies', // Product name. Required.
+   'sku': 'DD23444',              // SKU/code.
+   'category': 'Party Toys',      // Category or variation.
+   'price': '15',                 // Unit price.
+   'quantity': '2'                // Quantity.
+ }); 
+</code></pre>
+
+						<pre><code class="javascript"> /* Send it all away */
+ ga('ecommerce:send');
+</code></pre>
+					</section>
+					<section>
+						<span data-markdown>
+							### Ecommerce notes
+							- Ideally this should be generated from the server
+							- Don't scrape the page html to get this info
+							- Make sure it is after GA init script
+							- If your transaction currency is different from your site currency google will do a conversion for you
+						</span>
+					</section>
+				</section>
+<!--
+				<section>
+					<section>
+						<span data-markdown>
+							## Universal vs Classic
+							- When the switch happened nobody really noticed
+							- Can run concurrently (if that floats your boat)
+								- but independently (no cross-domain)
+							- Most methods have a 1-1 mapping
+							- Universal has a lot more features
+						</span>					
+					</section>
+				</section>
+-->
+				<section>
+					<section data-markdown>
+						## Identifing data holes
+						- Url
+						- Dynamic content
+						- Search and others
+						- *Setting restrictions*
+					</section>
+					<section data-markdown>
+						### Url
+						- the url should tell you a story and give as much info as possible to identify without digging deeper
+							- Try and keep guids out of the url that is tracked (filter or virtual page view)
+						- pages with different content using the same url
+							- Thank you page
+							- Enquiry forms
+							- Booking funnels
+					</section>
+					<section data-markdown>
+						### Dynamic content
+						- js templates e.g. angular, knockout or something else
+						- ajax driven
+						- tabbed content
+						- popups
+						- galleries
+					</section>
+					<section data-markdown>
+						### Search and events
+						- Tracking site search
+						- tracking search terms e.g.
+							- booking location
+							- any search that isn't site search
+						- tracking non-pageview activity
+							- downloads,mailto,external links, videos, interactions
+						- Tracking errors (exceptions)
+					</section>
+					<section data-markdown>
+						### Setting restrictions
+						- Block your own and client's traffic
+							- domain filter
+							- IP filter
+						- Block your test domains (just in case you used the same UA)
+					</section>
+				</section>
+
+				<section>
+					<section data-markdown>
+						## Testing
+						- Environment
+						- Tools
+						- Interpretation
+						- UA number
+						- Common issues
+					</section>
+					<section data-markdown>
+						### Environment
+						- Create a new profile
+						- Manage UA in CMS
+						- Send test traffic
+						- Look at the reporting tool
+						- Make sure the code is in *every* master template
+					</section>
+					<section data-markdown>
+						### Tools
+						- Use the Chrome GA plugin
+						- Looking at the requests
+							- Chrome devtools network
+							- Fiddler
+					</section>
+					<section data-markdown>
+						## Common issues
+						- No code
+							- Make sure the code is in *every* master template
+						- No UA, wrong UA
+						- Code running out of order
+							- GA not initialised
+						- There is a cross-domain issue
+						- Repeated code
+					</section>
+				</section>
+
+				<section data-markdown>
+					## Reporting Interface
+					- Some basic reports
+					- Live stats
+					- Goals
+					- Ecommerce
+				</section>
+
+				<section>
+					<h1>THE END</h1>
+					<p>Questions?</p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'convex', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+//					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( '.highlight' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { 
+    [].forEach.call( document.querySelectorAll( '.highlight,pre code' ), function( v, i) {
+        hljs.highlightBlock(v);
+    });
+} },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+			        { src: 'socket.io/socket.io.js', async: true },
+			        { src: 'plugin/notes-server/client.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

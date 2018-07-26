@@ -1,0 +1,152 @@
+Issues
+- Why it's bad/good
+- how to check
+- how to fix
+
+Glossary to explain
+- Virtual page view
+- Event tracking
+- Custom dimensions
+- UA number
+- GTM
+
+MAJOR THINGS
+- changing from old analytics to Universal
+	- all code is different, need to pick out existing old GA that might still be in the solution
+- running analytics through GTM
+	- process is completely different, several points of failure that need to be picked up
+- Installing custom dimensions, events and virtual pageviews
+	- Mostly requires additional script on the solution side which could interfere with functional code or business logic (or even your own GA code - deduping ecommerce)
+
+
+*TIMELINE*
+BEFORE PROJECT START
+DURING PROJECT
+TOWARDS END OF PROJECT
+AFTER PROJECT RELEASE
+
+*RESPONSIBILITY*
+DEV
+INSIGHTS
+CS
+PM
+DESIGN
+
+*TYPE OF CHANGE*
+NEW
+RELAUNCH
+UPDATE
+
+*FEATURE*
+TRAFFIC
+PAGE VIEWS
+EVENTS
+ECOMMERCE
+GOALS
+
+
+*Have you tested it end to end?
+*Has someone else tested it end to end?
+*Is there an arranged analytics stabilisation period that runs alongside the site stabilistation?
+*Has someone promised that there will be no lapse in tracking during important analytics/site updates?
+*Are important marketing campaings running during the stabilisation period?
+*Is the UA hardcoded either on page or in GTM?
+*Is the dev/test/staging UA the same as the live UA?
+*Has a test profile been setup for the site to send traffic to?
+*Has ecommerce been switched on in GA admin?
+*Have you filtered out our/clients/other-agencies ip and testing domains?
+*Are other domains showing as hostname on the live site?
+*Have you done a basic test in Chrome, Explorer and iOS Safari?
+*Is the data used for transactions "clean" for javascript?
+*	- Is it likely that any of the data has characters that might break the ecommerce data format? e.g. ',",\
+*Can transaction data be sent more than once at any time?
+*	- F5, bookmark or email link to confirmation/success page
+*Is there a GA ecommerce transaction for every server (real) transaction?
+*	- In production this rarely matches exactly for various reasons (cookies etc), but under test conditions you should be seeing them all.
+*Does the ecommerce transaction match the database transaction?
+*	- Product names, product prices, total prices
+*Is the sum of the products greater than the total transaction?
+*Are you getting self referrals from either the domain, sub-domain or any cross-domains?
+*Are you getting referrals from your payment provider?
+*Have you set up the Referral Exclusion List?
+*Have you set up cross-domain tracking?
+*Are you tracking errors like 404 etc in a helpful way?
+*Does you form success/thanks have a unique url?
+*Do you have page with different content showing as the same URL?
+*- multistep form on a single page or form wizard?
+*Do multiple forms have the same success page?
+Does the form success page have access to the submitted form data?
+	- significant options in forms (e.g. enquiry type) often are requested to be tracked.
+Are you getting the same page showing as different URL's in GA reporting (when it shouldn't)?
+	- uppercaase vs lowercase
+	- trailing backslash vs not
+	- querystring vs not (most often this is the expected behaviour)
+	- escaped html entities vs not e.g. %20 vs " "
+Are tabs, popups, ajax content being?
+	- Have you requested guidance on how this should be tracked e.g. virtual page view vs event tracking
+Are custom dimensions being used to track things that can help segment the traffic - like logged in users, or specific ecommerce information?
+	- If you haven't bene asked to track any dimensions, can you see oppurtunities to add this tracking?
+Did you check to see if there is an existing UA/GTM setup before you went ahead and made a new one?
+Did you look to see if there is an existing account or login to add tracking to rather than just picking a random account from the marketing list?
+Are you a bit unsure of what you are doing?
+Are you the only person doing the setup/implementation and testing of GA/GTM?
+Have you been given a task "Setup GA" without any brief?
+Are you using a debugging tool to test GA/GTM?
+Are you following a tracking plan or just making it up?
+- Is there a list of additional tracking requirements?
+Do you have insight in the website that could be valuable for tracking purposes or to add additional tracking?
+Do the test scripts for the site cover GA?
+- This can be tied in transaction testing
+Any you seeing strange browsers?
+Are event dates of interest being noted in analytics? e.g.
+	- Go live
+	- Analytics upgrade/update
+	- Particular marketing campaigns
+Do you need to have a test GTM container? If so, is it next to the live container?
+	- Sometimes a test container can be handy, but there is the issue of migrating changes to live, keeping changes in sync and general knowledge that a test container exists
+	- Can be easier to see parameters where tags don't fire from test, or they have didn't configuration that is set in the datalayer e.g. UA number
+Will a change in layout (e.g. design updates) affect the analytics/tracking/UX?
+	- Has this been passed by someone in dev/insights/marketing?
+Is the site tracking?
+	- Is there code but nothing being sent
+Are there alerts setup in GA admin to email if there are drops in traffic, ecommerce and goals?
+Does the client know what they are talking about or do they only appear to know what they are talking about?
+	- Does someone need to setup GTM is they are talking about "dataLayer" changes?
+Have goals been setup?
+Have a check been scheduled for a couple of days into launch to do traffic analysis?
+	- Is there a lot of direct traffic?
+Have data trends been investigated before before launch?
+	- Don't allow the assumption that something failed because of the new website, if it was showing downward trends before launch.
+Have you got unpublished changes in GTM just waiting for approval?
+	- don't leave that shit laying around, because then someone else will come along and publish your container accidentally
+Does the sum of the ecommerce items add up to the total?
+Do all links in emails sent from the website have GA tagging?
+	
+	
+GA FORENSICS
+
+Patterns
+- devices/browsers (some fail, some don't)
+- some transactions missing / all missing. Is there a pattern?
+- is there a general visitor dropoff, not just ecommerce
+- watching realtime can be helpful
+- overall the numbers of an incident may be large, but also look at the time scale to
+	- See when it started
+	- Increase, decrease
+	- consistent peaks
+- Anything that looks odd might be a sign that something is wrong. Don't dismiss it as "I guess that is just google" until you actually know this is the case. Often when investing issues, other issues that we didn't even know where a problem crop up, and are only found from looking at numbers and thinking "that's odd". Most times it is nothing and is purely how the numbers are interpreted, but sometimes it is a gremlin.
+	- Totals that don't look they should be possible e.g decimals in totals when you are mostly expecting 
+
+
+STERLING CASE STUDY
+- Sitecon traffic
+- rocket fuel inc traffic
+
+Both sending direct traffic which skewed the data, but method of finding was different
+- One was looking at browser. "Sitecon browser" was showing up. All direct, 100% bounce.
+- Also looking at browser firefox was top of the list, but it held a smaller proportion of total site traffic. However overall direct traffic generated was significant approx 12%
+	- drill down, all the same version, with peaks on the same days of the week
+	- version number is outdated, running from linux server
+	- Looked at service provider to see if there was a pattern, all coming from "rocket fuel inc"
+	- Turns out they are spidering the site for product information (legit purpose), but are still running all tracking on the page (pain in the a)
+	- Simple fix (filters), but prior knowledge would have been helpful

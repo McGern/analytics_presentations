@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Google Analytics - The basics</title>
+
+		<meta name="description" content="Google Analytics Basics">
+		<meta name="author" content="Jarrod McGuire">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/equator.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h2>Google Analytics (GA) <br/> Google Tag Manager (GTM)</h2>
+					<h3>Session 1 - The basics</h3>
+					<p>
+						<small>Jarrod McGuire</small>
+					</p>
+				</section>
+
+				<section>
+					<section data-markdown>
+					# Before we start...
+					</section>
+
+					<section data-markdown data-background="images/question.jpg" data-background-size="cover" data-state="bgimg">
+						## Who am I and why am I standing here?
+					</section>
+					
+					<section data-markdown data-background="images/question.jpg" data-background-size="cover" data-state="bgimg">
+						<script type="text/template">
+						## Why are you here?
+						- For an introduction to the basics of GA and GTM <!-- .element: class="fragment" -->
+						- To get a speed run of GA and GTM <!-- .element: class="fragment" -->
+						</script>
+					</section>
+
+					<section data-markdown data-background="images/question.jpg" data-background-size="cover" data-state="bgimg">
+						<script type="text/template">
+							## Why is it important for you to know?
+							- We use it on every site that is launched <!-- .element: class="fragment" -->
+							- Everyone should have an interest in:- <!-- .element: class="fragment" -->
+								- how is the site doing? <!-- .element: class="fragment" -->
+								- Did that thing I spent ages designing/developing/writing/producing work? <!-- .element: class="fragment" -->
+							- Everyone should be aware about what is involved <!-- .element: class="fragment" -->
+							- Understand that GA and GTM are different things <!-- .element: class="fragment" -->
+						</script>
+					</section>
+				</section>				
+				
+				<section>
+					<section data-markdown>
+						## GA/GTM Responsibilities
+						- **_“That's a Dev job”_** - CS
+						- **_“That's a Marketing job”_** - Dev
+						- **_“That's an Insights job”_** - Marketing
+						- **_“That's not my job”_** - Design
+						- **_“Can someone just sort it out?”_** - PM
+						
+						Each discipline has their role to play	
+					</section>
+					<section data-markdown>
+						### Who is responsible?
+						- The main focus should be on the statistical stakeholder
+							- i.e. who wants the reports?
+						- Development don't make reports, only provide data
+						- The data that needs to be collected should be defined up front
+						- A developer should always ask the question about analytics
+					</section>
+				</section>
+				
+				<section data-markdown data-background="images/matrixrain.gif" data-background-size="cover" data-state="bgimg2">
+					## Section 1  - Google Analytics
+					> The data bit
+				</section>
+
+				<section data-markdown>
+					## In this section
+					- What is Google Analytics?
+					- How does it work?
+					- The reporting interface
+					- The code
+					- Basic tracking
+					- A quick look at the reporting admin panel
+				</section>
+
+				<section>
+					<section data-markdown>
+						### What is GA?
+						#### Little bit of history
+						- Started life as Urchin Analytics (hence the UA)
+						- Now in 3rd (4th?) major overhaul since Google bought the company
+						- Probably called "Universal" now because of the prevalence of the "UA" prefix
+					</section>
+					<section data-markdown>
+						### The gist
+						- A tool for collecting and analysing user traffic with the purpose of discovering trends in the data e.g.
+							- What are people looking at on my website?
+							- Where are the holes in my app?
+							- If I spend X thousand pounds on a marketing campaign, what is my return?
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						### how does it work?
+					</section>
+					<section data-markdown data-background="images/beacon-flow.png" data-background-size="auto">
+					</section>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						## Common tracking requirements
+						- Tracking the page the user visited (page view) <!-- .element: class="fragment" -->
+							- Faking the page the user visited (virtual page view)
+						- Actions the user perform on the page (events) <!-- .element: class="fragment" -->
+							- Clicks, scrolls, video views
+						- What they bought (ecommerce) <!-- .element: class="fragment" -->
+							- source and medium e.g. google and ppc
+					</script>
+				</section>
+				
+				<section data-markdown data-markdown data-background="images/analytics_screen.png" data-background-size="cover" data-state="bgimg2" style="background-color:rgba(0,0,0,0.7)">
+					### A look at the reporting interface
+					- Some basic reports
+					- Live data
+					- Goals
+					- Ecommerce
+				</section>
+			
+				<section>
+					<section data-markdown>
+						### The code
+						- The basic code
+						- Out of the box
+						- Not out of the box
+					</section>
+					<section>
+						<h3>The basic code</h3>
+						<pre><code class="javascript">
+ /* Recommended to put this in the head.
+    Creates less hassles with code in the future */
+ (function (i, s, o, g, r, a, m) {
+ 	// blah blah blah. Code provided by GA
+ })(window,document,'script',
+ '//www.google-analytics.com/analytics.js','ga');
+
+ ga('create', 'UA-12345678-1' , 'auto');
+ 
+ ga('send', 'pageview');
+
+</code></pre>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						### These things come for "free"
+						- pages <!-- .element: class="fragment" -->
+							- landing
+							- exits
+							- page load times (I think)
+						- referrers <!-- .element: class="fragment" -->
+						- visitors <!-- .element: class="fragment" -->
+							- time on site
+							- geography
+							- returns
+						- browser and os <!-- .element: class="fragment" -->
+						</script>
+					</section>
+					<section data-markdown>
+						### These things need extra work
+						- Goals and funnels
+						- virtual page views
+						- event tracking
+						- ecommerce
+						- social tracking
+						- enhanced link attribution (what they clicked on)
+						- custom dimensions (custom variables for segmentation)
+						- adwords
+						- site search
+						- filters
+						- custom reports
+					</section>
+					<section data-markdown>
+						### A few words about event tracking
+						- We use this a lot to track user interactions on a page
+						- See how people are using controls/components on the site
+							- External links, downloads and mailto links
+							- Interface actions (start/stop video)
+							- button clicks
+					</section>				
+					<section>
+						<span data-markdown>
+							### A event tracking code example
+						</span>
+						<pre><code class="javascript">
+    /* example of event syntax */
+    ga('send', 'event', 'Category', 'Action', 'Label', Value);
+	
+    ga('send', 'event', 'Video', 'Play', 'sitevideo.mp4');
+	
+</code></pre>
+					</section>				
+				</section>
+
+
+				<section data-markdown>
+					## End of section 1 - GA basics
+					Any questions?
+				</section>
+
+				<section data-markdown data-background="images/intermission.png" data-background-size="contain" data-background-color="#0E1013">
+				</section>
+				
+				<!-- GTM -->
+
+				<section data-markdown>
+					### Section 2  - Google Tag Manager
+					> Not the data bit
+				</section>
+				
+				<section>
+					<span data-markdown>
+						## What's in this session
+						- What is GTM?
+						- The interface
+						- The Data Layer
+						- Demonstration
+					</span>
+				</section>
+
+				<section data-markdown>
+					# GTM is not GA!!!
+				</section>
+				
+				<section>
+					<span data-markdown>
+						## What is GTM?
+						- GTM is a conduit for scripts and tags you wish to put on your website.
+						- It is a powerful and (reasonably) flexible tool that allows for built-in and custom scripts to be added to the website with the intention of little to no input from the developer.
+						- In reality there is more developer input than people generally account for.
+					</span>
+				</section>
+
+				<section data-markdown>
+					# GTM is still not GA!!!
+				</section>
+				
+				<section>
+					<section data-markdown data-background="images/gtm-interface.png" style="background-color:rgba(0,0,0,0.7)">
+						## The interface
+						The main features of the GTM interface include:-
+						- The container
+						- Tags
+						- Triggers
+						- Variables
+						- Folders
+						- Version control for published containers
+						- Preview and debug mode for unpublished (and published) containers
+					</section>
+					<section>
+						<img src="images/containers.jpg" style="width: 220px;margin-top: 70px;float:right;" />
+						<div data-markdown style="overflow:hidden;">
+							### Container
+							- Has all of the tags that will appear on the a site.
+							- Represented by a piece of code that goes on every page on your site.
+						</div>
+						<img src="images/container-code.png" />
+					</section>
+					<section>
+						<span data-markdown>
+							### Tags
+							- Script that you want to appear on the website
+							- Some tags are quite easy to implement in the tag manager interface e.g. "on this page load this script".
+							- Some are more difficult e.g. "on the confirmation page make the transaction information available to be picked up by tag manager".
+						</span>
+					</section>
+					<section data-markdown>
+						### Triggers
+						- The rule for why the tag appears on the website e.g. All pages, particular event, particular page
+						- GTM provides a series of built in events that can be used in triggers e.g. clicks, form, timers, or you can create your own which can then be picked up by the trigger.
+					</section>
+					<section data-markdown>
+						### Variables
+						- Information that can be used in the trigger rule or the tag setup
+						- Variables can be set as constants in the interface or pulled from a variety of places; dataLater is most common, but you would grab it from a dom element on the page (for example)
+					</section>
+					<section data-markdown>
+						### Other stuff 
+						- Folders - Used for filing linked tags, triggers and variables because the list can get a bit unwieldy.
+						- Version control for published containers
+						- Preview and debug mode for unpublished (and published) containers
+					</section>
+				</section>
+
+				<section>
+					<section data-markdown>
+						## The Data Layer
+						- The more difficult tags ones are always where the website needs to interact with GTM.
+						- Tags will either pick up data when it is initialised e.g. GA setup, or react to data that is pushed after initialisation e.g. virtual pageview
+						- Communication is provided via the dataLayer array which data is pushed into.
+						- The dataLayer can hold info for use in variables (macros) or events that need to be fired.
+					</section>
+					<section>
+						<span data-markdown>
+							### Example items kept in the dataLayer
+							- Google UA Id. This would be put on the page before GTM initialisation
+						</span>
+						<pre>
+						<code class="javascript">
+ /* general check to see if the dataLayer exists already */
+ var dataLayer = window.dataLayer || [];
+
+ dataLayer.push({
+	googleAnalyticsUA: '@Model.GoogleAnalyticsUA'
+ });
+
+</code>
+						</pre>
+					</section>
+				</section>
+			
+				<section>
+					<span data-markdown>
+						## Demo
+						- Creating a new container
+						- Put code into page
+						- Preview mode
+						- Creating variables, tags and triggers
+						- Creating and ecommerce tag
+					</span>
+				</section>
+				
+				<section style="text-align: left;">
+					<h1>THE END</h1>
+					<p>Questions?</p>
+					<p>
+						<small>
+						Links<br>
+						- <a href="http://www.simoahava.com/tag/google-tag-manager/">GTM Blogger Simo Ahava</a><br>
+						</small>
+					</p>
+				</section>
+				
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'convex', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+//					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( '.highlight' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { 
+    [].forEach.call( document.querySelectorAll( '.highlight,pre code' ), function( v, i) {
+        hljs.highlightBlock(v);
+    });
+} },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+			        { src: 'socket.io/socket.io.js', async: true },
+			        { src: 'plugin/notes-server/client.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

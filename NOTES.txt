@@ -1,0 +1,3 @@
+Don't make a new GTM container for a website we are redoing if it already exists (unless there is a good reason to do so). Review the existing tags.
+
+Don't EVER put the UA number in GTM statically. This container is likely being shared with staging, test, dev
