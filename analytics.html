@@ -61,6 +61,38 @@
 						* Stuff I have deemed to be important
 					</span>
 				</section>
+
+				<section>
+					<section data-markdown>
+						## What are we doing here?
+					</section>
+
+					<section data-markdown>
+						### Why me?
+						- Learned a bit over 9 years of trial and error and more error
+						- Company too big for one go-to person
+						- I'm not involved in day-to-day intalls anymore, so time to bring in some new blood
+					</section>
+					<section data-markdown>
+						### Why you?
+						- Why not?
+						- A handcrafted elite taskforce, picked for essential skills
+						- Probably because you are front-end and that's were the code tends to be...
+						- ...but it's much more than that
+					</section>
+						
+					<section data-markdown>
+						### Purpose of this sessions (too many words)
+						- To get a grasp on HOW analytics and GTM works (and should work), so when you are tasked with solving problems or installing, you have the groundwork to approach the problem with confidence
+						- This is not a handover and goodbye. We will work together when trying to solve a problem
+						- I want the culture to change so that you are the first point of call when an issue arises which you can solve, which I can then pitch in when assistance is required - rather than me getting a issue and solving it in isolation.
+						
+						Ideal:
+						Whenever we solve an issue in the future, we will share it, and then record it (if we have time)
+					</section>
+						
+					</section>
+				</section>
 				
 				<section>
 					<section data-markdown>
@@ -194,36 +226,38 @@
 					</section>
 					<section>
 						<span data-markdown>
-							### An better approach
+							### The preferred approach
 							- With Universal it is possible to set the page parameter that is used with all requests
 						</span>
 						<pre><code class="javascript">
  /* Set the page parameter for all subsequent beacons */
  ga('set','page','/fake-page');
- /* Send a normal pageview. Will use the "page" value, not the url
+ /* Send a normal pageview. Will use the "page" value, not the url */
  ga('send', 'pageview');
  /* Send an event. Will also use the "page" value */
  ga('send', 'event','categoryXYZ','action123');
  
 </code></pre>
 					</section>
+					<section data-markdown>
+						### Track event
+						- Rather than invoking a virtual page view to track user interactions, an event can be called to indicate what your users have been up to without bloating your page view data
+						- Used to see how users are interacting with pages/controls on the site
+							- External links, downloads and mailto links
+							- Interface actions (start/stop video)
+							- button clicks
+						- Category, Action and Label are hierarchical. Use them to drill down for more detailed info
+						- Value is an optional metric where you can add weight to the event
+					</section>
 					<section>
 						<span data-markdown>
-							### Track event
-							- Rather than invoking a virtual page view to track user interactions, an event can be called to indicate what your users have been up to without bloating your page view data
-							- Used to see how users are interacting with pages/controls on the site
-								- External links, downloads and mailto links
-								- Interface actions (start/stop video)
-								- button clicks
-							- Category, Action and Label are hierarchical. Use them to drill down for more detailed info
-							- Value is an optional metric where you can add weight to the event
+							### Track event sample
 						</span>
 						<pre><code class="javascript">
  /* example of event syntax */
  ga('send', 'event', 'Category', 'Action', 'Label', Value);
 
  ga('send', 'event', 'Page click', 'Menu bar', 'Menu open');
-
 </code></pre>
 					</section>
 				</section>
@@ -365,23 +399,25 @@
 						- No code
 							- Make sure the code is in *every* master template
 						- No UA, wrong UA
-						- Code running out of order
-							- GA not initialised
+						- Code race condition
+							- GA not initialised before tracking request
 						- There is a cross-domain issue
-						- Repeated code
+						- Duplicate tracking code
 					</section>
 				</section>
 
 				<section data-markdown>
-					## Reporting Interface
-					- Some basic reports
-					- Live stats
+					## Looking at live code and the reporting interface
 					- Goals
 					- Ecommerce
+					- Filters
+					- Dimensions and metrics
+					- End to end traffic
+					- Real time analytics
 				</section>
 
 				<section>
-					<h1>THE END</h1>
+					<h1>THE END (of this bit)</h1>
 					<p>Questions?</p>
 				</section>
 

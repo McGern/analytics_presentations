@@ -69,15 +69,32 @@
 						* In reality there is more developer input than people generally account for. Actually a lot more.
 					</span>
 				</section>
+
+				<section data-markdown>
+					## Why use it?
+					* Allows tags to be added to a site without additional deployments (usually)
+					* Allow data to be re-used in multiple tracking platforms
+					* All the cool kids are using it
+				</section>
+
+				<section data-markdown>
+					## GTM IS NOT GA!!!
+				</section>
 				
 				<section>
 					<section data-markdown data-background="images/gtm-interface.png" style="background-color:rgba(0,0,0,0.85)">
 						## The interface
 						The main features of the GTM interface include:-
+						* Accounts
 						* The container
 						* Tags
 						* Triggers
 						* Variables
+					</section>
+					<section data-markdown>
+						### Accounts
+						* The high level listing of grouped containers
+						* Ideal for associating containers belonging to a particular client
 					</section>
 					<section>
 						<img src="images/containers.jpg" style="width: 220px;margin-top: 70px;float:right;" />
@@ -90,47 +107,50 @@
 					</section>
 					<section data-markdown>
 						### Tags
-						* Script that you want to appear on the website
-						* Some tags are quite easy to implement in the tag manager interface e.g. "on this page load this script".
-						* Some are more difficult e.g. "on the confirmation page make the transaction information available to be picked up by tag manager".
+						* Scripts that you want to appear on the website
+						* Some are easy: put this tag on a particular page
+						* Some are less easy: make transaction info available for ecommerce tag
 					</section>
 					<section data-markdown>
 						### Triggers
-						* The rule for why the tag appears on the website e.g. All pages, particular event, particular page
-						* GTM provides a series of built in events that can be used in triggers e.g. clicks, form, timers, or you can create your own which can then be picked up by the trigger.
+						* The rule for why the tag appears on the website
+						* There are built-in events to use, or you can make custom ones
 					</section>
 					<section data-markdown>
 						### Variables
-						* Information that can be used in the trigger rule or the tag setup
-						* Variables can be set as constants in the interface or pulled from a variety of places; dataLater is most common, but you would grab it from a dom element on the page (for example)
+						* Data that can be used in the trigger rule or the tag setup
+						* Variables can be:
+						** constants set in the interface
+						** pulled from the dataLayer (most common)
+						** but could be grabbed from a dom element on the page or a function result
 					</section>
 					<section data-markdown>
 						### Other stuff 
-						* Folders - Used for filing linked tags, triggers and variables because the list can get a bit unwieldy.
-						* Version control for published containers
-						* Preview and debug mode for unpublished (and published) containers
+						* Folders
+						* Version control
+						* Preview mode
 					</section>
 				</section>
 
 				<section>
 					<section data-markdown>
 						## The Data Layer
-						* The more difficult tags are always where the website needs to interact with GTM.
-						* The container will either pick up data when it is initialised e.g. GA setup, or react to data that is pushed after initialisation e.g. virtual pageview
-						* SHOW A PICTURE OF THIS before, init, after
-						* Communication is provided via the dataLayer array which data is pushed into.
-						* The dataLayer can hold info for use in variables (macros) or events that need to be fired.
+						* Allows data from the website to be passed to GTM
+						* Picked up by GTM when initialised, or pushed into GTM after initialisation
+						* The dataLayer is a array which you push objects into
 					</section>
 					<section>
 						<span data-markdown>
 							### Example items put in the dataLayer
 							* Google UA Id. This would be put on the page before GTM initialisation
-							* Site info e.g. logged in, 
+							* Custom dimensions
+							* Ecommerce data
+							* Event tracking data
 						</span>
 						<pre>
 						<code class="javascript">
  /* general check to see if the dataLayer exists already */
- var dataLayer = window.dataLayer || [];
+ var dataLayer = dataLayer || [];
 
  dataLayer.push({
 	googleAnalyticsUA: '@Model.GoogleAnalyticsUA'
@@ -148,7 +168,6 @@
 						* Put code into page
 						* Preview mode
 						* Creating variables, tags and triggers
-						* Creating and ecommerce tag
 					</span>
 				</section>
 				
@@ -158,7 +177,8 @@
 					<p>
 						<small>
 						Links<br>
-						- <a href="http://www.simoahava.com/tag/google-tag-manager/">GTM Blogger Simo Ahava</a><br>
+						- <a href="https://www.lunametrics.com/blog/">Luna Metrics</a><br/>
+						- <a href="http://www.simoahava.com/">GA/GTM Blogger Simo Ahava</a>
 						</small>
 					</p>
 				</section>
