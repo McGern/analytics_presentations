@@ -77,18 +77,14 @@
 						### Why you?
 						- Why not?
 						- A handcrafted elite taskforce, picked for essential skills
-						- Probably because you are front-end and that's were the code tends to be...
-						- ...but it's much more than that
+						- Probably because you are front-end and that's where the code tends to be...
 					</section>
 						
 					<section data-markdown>
-						### Purpose of this sessions (too many words)
-						- To get a grasp on HOW analytics and GTM works (and should work), so when you are tasked with solving problems or installing, you have the groundwork to approach the problem with confidence
+						### Purpose of these sessions
+						- To get a grasp on **HOW** analytics and GTM works
 						- This is not a handover and goodbye. We will work together when trying to solve a problem
-						- I want the culture to change so that you are the first point of call when an issue arises which you can solve, which I can then pitch in when assistance is required - rather than me getting a issue and solving it in isolation.
-						
-						Ideal:
-						Whenever we solve an issue in the future, we will share it, and then record it (if we have time)
+						- Culture change so there are other first points of contact
 					</section>
 						
 					</section>
@@ -97,20 +93,21 @@
 				<section>
 					<section data-markdown>
 						## Overview of Google Analytics
-						* What is GA?
-						* How does it work? 
-						* Who is responsible?
+						- What is GA?
+						- How does it work? 
+						- Who is responsible?
 					</section>
 					<section data-markdown>
 						### What is GA?
-						* Started life as Urchin Analytics (hence the UA)
-						* Now in 3rd major overhaul since Urchin
-						* Probably called "Universal" because of the "UA" code
+- Started life as Urchin Analytics ~ 1997 (hence the UA)
+- Acquired by Google in 2005
+						- Now in 3rd major overhaul since Urchin (and 4th js framework)
+						- Probably called "Universal" because of the "UA" code
 					</section>
 					<section>
 						<span data-markdown>
 							### How does it work?
-							- GA creates a persistent cookie storing only an Id
+							- GA creates a persistent cookie storing only a client id
 							- Every request (beacon) is an image with querystring data
 						</span>
 						<pre class="url">
@@ -133,7 +130,8 @@
 							- i.e. who wants the reports
 						- Development don't make reports, only provide data
 						- The data that needs to be collected should be defined up front
-						- A developer should always ask the question about analytics
+- But, a developer should always ask about analytics
+    - and be thinking about it
 					</section>
 				</section>
 
@@ -191,9 +189,9 @@
 				<section>
 					<section data-markdown>
 						## Basic methods (views and events)
-						- Page view
+						- **Page view**
 							- Track portions of content that you consider to be a page
-						- Event
+						- **Event**
 							- Track user interactions within pages
 							- Fine line needs to be decided with dynamic content e.g. did the user click the next button or did the user go to a new "page"?
 					</section>
@@ -227,7 +225,7 @@
 					<section>
 						<span data-markdown>
 							### The preferred approach
-							- With Universal it is possible to set the page parameter that is used with all requests
+							- It is possible to set the page parameter for all subsequent requests
 						</span>
 						<pre><code class="javascript">
  /* Set the page parameter for all subsequent beacons */
@@ -241,8 +239,7 @@
 					</section>
 					<section data-markdown>
 						### Track event
-						- Rather than invoking a virtual page view to track user interactions, an event can be called to indicate what your users have been up to without bloating your page view data
-						- Used to see how users are interacting with pages/controls on the site
+						- Used to indicate what your users have been up on a page to without bloating your page view data
 							- External links, downloads and mailto links
 							- Interface actions (start/stop video)
 							- button clicks
@@ -264,11 +261,11 @@
 				<section>
 					<section data-markdown>
 						## Basic methods (ecommerce)
-						- Quantify how your site is performing.
-						- A conversion is where you turn a site visit into something of value to you.
-						- Ecommerce tracking can give you clearer information which is quicker to access regarding visits, CPC, organic, campaigns and how they converted
-						- Any site can use ecommerce tracking regardless of whether there is money changing hands or not.
-							- In these cases an arbitrary amount is assigned to the transaction e.g. £1
+						- Quantify how your site is performing monetarily
+						- A conversion is where you turn a site visit into something of value to you
+						- Ecommerce tracking gives you more dataa depth regarding visits and how they converted
+						- You can use ecommerce tracking whether there is money changing hands or not
+							- form requests assigned arbitrary value e.g. £1
 					</section>
 					<section>
 						<span data-markdown>
@@ -306,7 +303,7 @@
 						<span data-markdown>
 							### Ecommerce notes
 							- Ideally this should be generated from the server
-							- Don't scrape the page html to get this info
+							    - Don't scrape the page html to get this info
 							- Make sure it is after GA init script
 							- If your transaction currency is different from your site currency google will do a conversion for you
 						</span>
@@ -336,17 +333,15 @@
 					</section>
 					<section data-markdown>
 						### Url
-						- the url should tell you a story and give as much info as possible to identify without digging deeper
-							- Try and keep guids out of the url that is tracked (filter or virtual page view)
-						- pages with different content using the same url
+						- the url should indicate the user journey
 							- Thank you page
 							- Enquiry forms
 							- Booking funnels
 					</section>
 					<section data-markdown>
 						### Dynamic content
-						- js templates e.g. angular, knockout or something else
-						- ajax driven
+						- js driven content e.g. angular, react
+						- ajax driven (partial page)
 						- tabbed content
 						- popups
 						- galleries
@@ -358,8 +353,8 @@
 							- booking location
 							- any search that isn't site search
 						- tracking non-pageview activity
-							- downloads,mailto,external links, videos, interactions
-						- Tracking errors (exceptions)
+							- downloads, mailto, external links, videos, interactions
+						- Tracking errors and exceptions
 					</section>
 					<section data-markdown>
 						### Setting restrictions
@@ -391,14 +386,14 @@
 						### Tools
 						- Use the Chrome GA plugin
 						- Looking at the requests
-							- Chrome devtools network
+							- Chrome devtools network tab
 							- Fiddler
 					</section>
 					<section data-markdown>
 						## Common issues
 						- No code
 							- Make sure the code is in *every* master template
-						- No UA, wrong UA
+						- No UA or wrong UA
 						- Code race condition
 							- GA not initialised before tracking request
 						- There is a cross-domain issue
@@ -417,7 +412,7 @@
 					- [Link to demo file](https://ga-test-subdomain1.glitch.me/)
 					- [Link to demo source](https://glitch.com/edit/#!/ga-test-subdomain1)
 				</section>
-
+                
 				<section style="text-align: left;">
 					<h1>THE END (of this bit)</h1>
 					<p>Questions?</p>
@@ -430,6 +425,165 @@
 						- <a href="https://chrome.google.com/webstore/detail/google-analytics-debugger/jnkmfdileelhofjcijamephohjechhna?hl=en">Google analytics debugger chrome extension</a>
 						</small>
 					</p>					
+				</section>
+
+				<section data-markdown data-background="images/intermission.png" data-background-size="contain" data-background-color="#0E1013">
+				</section>
+				
+				<!-- GTM -->
+
+				<section>
+					<h1>Google Tag Manager</h1>
+					<h3>The container and the code</h3>
+					<p>
+						<small>Jarrod McGuire</small>
+					</p>
+				</section>
+
+				<section>
+					<span data-markdown>
+					## What's in this session
+					* What is GTM?
+					* The interface
+					* The Data Layer
+					* Demonstration
+					</span>
+					<aside class="notes">
+						notes go here
+					</aside>
+				</section>
+
+				<section>
+					<span data-markdown>
+						## What is GTM?
+						* GTM is a conduit for placing scripts on your website
+						* Powerful and (reasonably) flexible tool that allows for built-in and custom scripts to be added to the website
+						* Intention to have little to no input from the developer
+						* There is more developer input than people generally account for. Actually a lot more
+					</span>
+				</section>
+
+				<section data-markdown>
+					## Why use it?
+					* Allows tags to be added to a site without additional deployments (usually)
+					* Allow data to be re-used in multiple tracking platforms
+					* All the cool kids are using it
+				</section>
+
+				<section data-markdown>
+					# GTM IS NOT GA!!!
+				</section>
+				
+				<section>
+					<section data-markdown data-background="images/gtm-interface.png" style="background-color:rgba(0,0,0,0.85)">
+						## The interface
+						The main features of the GTM interface include:-
+						* Accounts
+						* The container
+						* Tags
+						* Triggers
+						* Variables
+					</section>
+					<section data-markdown>
+						### Accounts
+						* The high level listing of grouped containers
+						* Ideal for associating containers belonging to a single client
+					</section>
+					<section>
+						<img src="images/containers.jpg" style="width: 220px;margin-top: 70px;float:right;" />
+						<div data-markdown style="overflow:hidden;">
+							### Container
+							* Has all of the tags that will appear on the a site.
+							* Represented by a piece of code that goes on every page on your site.
+						</div>
+						<img src="images/container-code.png" />
+					</section>
+					<section data-markdown>
+						### Tags
+						* Scripts that you want to appear on the website
+						* ***Some are easy***: put this tag on a particular page
+						* ***Some are less easy***: make transaction info available for ecommerce tag
+					</section>
+					<section data-markdown>
+						### Triggers
+						* The rule for why the tag appears on the website
+						* There are built-in events to use, or you can make custom ones
+					</section>
+					<section data-markdown>
+						### Variables
+						- Data that can be used in the trigger rule or the tag setup
+						- Variables can be:
+						    - constants set in the interface
+						    - pulled from the dataLayer (most common)
+						    - but could be grabbed from a dom element on the page or a function result
+					</section>
+					<section data-markdown>
+						### Other stuff 
+						* Folders
+						* Version control
+						* Preview mode
+					</section>
+				</section>
+
+				<section>
+					<section data-markdown>
+						## The Data Layer
+						* Allows data from the website to be passed to GTM
+						* Picked up by GTM when initialised, or pushed into GTM after initialisation
+						* The dataLayer is a array which you push objects into
+					</section>
+					<section>
+						<span data-markdown>
+							### Example items put in the dataLayer
+							* Google UA Id. This would be put on the page before GTM initialisation
+							* Custom dimensions
+							* Ecommerce data
+							* Event tracking data
+						</span>
+						<pre>
+						<code class="javascript">
+ /* general check to see if the dataLayer exists already */
+ var dataLayer = dataLayer || [];
+
+ dataLayer.push({
+	googleAnalyticsUA: '@Model.GoogleAnalyticsUA'
+ });
+
+</code>
+						</pre>
+					</section>
+				</section>
+			
+				<section>
+					<span data-markdown>
+						## Demo
+						- Creating a new container
+						- Put code into page
+						- Preview mode
+						- Creating variables, tags and triggers
+						- [Link to demo file](https://gtm-test.glitch.me/)
+						- [Link to demo source](https://glitch.com/edit/#!/gtm-test)
+					</span>
+				</section>
+                
+                <section data-markdown>
+                    ## Prepped Questions
+                    - How much does dev need to do vs what GA/GTM can do from the console?
+                    - Best workflow for custom events?
+                    - Any resources?
+                </section>
+
+				<section style="text-align: left;">
+					<h1>THE END (of this bit)</h1>
+					<p>Questions?</p>
+					<p>
+						<small>
+						Links<br>
+						- <a href="https://developers.google.com/tag-manager/devguide">GTM dev guide</a>
+						- <a href="https://www.lunametrics.com/blog/">Luna metrics - marketing mob</a><br/>
+						- <a href="http://www.simoahava.com/">Analytics blogger Simo Ahava</a>
+						</small>
+					</p>
 				</section>
 
 			</div>
